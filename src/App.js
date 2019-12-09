@@ -2,7 +2,10 @@ import React from 'react';
 import './App.css';
 import axios from 'axios';
 // const databaseUrl = process.env.HEROKU_DB_URL || 'http://localhost:3000'
-const databaseUrl = 'https://heroku-deployment-backend-77.herokuapp.com'
+const herokuBackendUrl = 'https://heroku-deployment-backend-77.herokuapp.com'
+const databaseUrl = process.env.NODE_ENV === 'production' ? herokuBackendUrl : 'http://localhost:3000'
+// const apiUrl = 'https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=a19bff0f4a764cbcb3de17525336fd29'
+
 
 class App extends React.Component {
   state = {
@@ -11,7 +14,21 @@ class App extends React.Component {
 
   componentDidMount() {
     this.getUsers()
+    this.getSportsNews()
   }
+
+
+  // sports news api
+  // getSportsNews = () => {
+  //   axios({
+  //     url: `${apiUrl}`,
+  //     method: 'get'
+  //   })
+  //     .then(response => {
+  //       console.log(response)
+  //       this.setState({ response })
+  //     })
+  // }
 
   getUsers = () => {
     axios({
